@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-const Student = require("../models/Student");
+const Student = require("../models/student");
 
 // 1. CREATE - Add a new student
 router.post("/", async (req, res) => {
