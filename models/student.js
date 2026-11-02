@@ -2,11 +2,12 @@
 const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
+
     name: {
         type: String,
         required: [true, "Name is required"],
         trim: true,
-        minlength: 2
+        minlength: [2, "Name must contain at least 2 characters"]
     },
 
     email: {
@@ -15,7 +16,10 @@ const studentSchema = new mongoose.Schema({
         unique: true,
         lowercase: true,
         trim: true,
-        match: [/^\S+@\S+\.\S+$/, "Enter a valid email"]
+        match: [
+            /^\S+@\S+\.\S+$/,
+            "Please enter a valid email address"
+        ]
     },
 
     course: {
@@ -27,9 +31,14 @@ const studentSchema = new mongoose.Schema({
     age: {
         type: Number,
         required: [true, "Age is required"],
-        min: 1,
-        max: 100
+        min: [1, "Age must be at least 1"],
+        max: [100, "Age cannot exceed 100"],
+        validate: {
+            validator: Number.isInteger,
+            message: "Age must be a whole number"
+        }
     }
+
 });
 
 module.exports = mongoose.model("Student", studentSchema);
